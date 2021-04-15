@@ -50,6 +50,14 @@ public class Creditcard {
         return fees;
     }
 
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
     public void setFees(double fees) {
         this.fees = fees;
     }
