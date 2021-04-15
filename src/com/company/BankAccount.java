@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccount {
@@ -17,7 +18,7 @@ public class BankAccount {
         this.user = user;
         this.balance = balance;
         this.pix = pix;
-        this.transfers = new List<BankTransfer>();
+        this.transfers = new ArrayList<BankTransfer>();
     }
 
     public int getId() {
