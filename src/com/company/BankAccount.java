@@ -11,14 +11,14 @@ public class BankAccount {
     private String pix;
     private Creditcard creditcard;
     private Loan loan;
-    private List<Payment> payments;
+    private List<Transaction> transactions;
 
     public BankAccount(User user, double balance, String pix) {
         this.id = ++lastId;
         this.user = user;
         this.balance = balance;
         this.pix = pix;
-        this.payments = new ArrayList<Payment>();
+        this.transactions = new ArrayList<Transaction>();
     }
 
     public int getId() {
@@ -62,17 +62,31 @@ public class BankAccount {
         }
     }
 
-    public void pay(Payment payment) {
-        if(payment.getValue() < this.balance){
-            this.balance -= payment.getValue();
-            this.payments.add(payment);
-            payment.getMethod().transferMoney(payment.getValue());
-        }
-    }
+
 
     public void deposit(double value) {
         if(value > 0) {
             this.balance += value;
         }
     }
+
+    public void pay(double value, String description, String date, String barcode) {
+        if(value < this.balance){
+            Transaction bankSlip = new BankSlip(value, description, date, barcode);
+            transactions.add(bankSlip);
+            this.balance -= value;
+        }
+    }
+
+    public void transfer(double value, String description, String date, TransferDestination destination) {
+        double fee = destination.getFee();
+        value += fee;
+        if(value < this.balance){
+            Transaction transfer = new Transfer(value, description, date, destination);
+            transactions.add(transfer);
+            this.balance -= value;
+        }
+    }
+
+
 }

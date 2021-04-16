@@ -10,8 +10,8 @@ public class Main {
         BankAccount account1 = new BankAccount(rafa, 10000,"rafael@gmail.com");
 
         Address zeAddress = new Address("Rua X", "54", "Centro", "city", "state", "01234-567");
-        User ze = new User("Jose da Silva", "123.456.789-23", "(11)98765-4322", "ze@gmail.com", 500, zeAddress);
-        BankAccount contaZe = new BankAccount(ze, 250,"rafael@gmail.com");
+        User ze = new User("José da Silva", "123.456.789-23", "(11)98765-4322", "ze@gmail.com", 500, zeAddress);
+        BankAccount contaZe = new BankAccount(ze, 250,"ze@gmail.com");
 
 
         account1.generateCreditcard("1234.5678.9876.5432", "123", "09/2027", "Mastercard");
@@ -30,22 +30,18 @@ public class Main {
         account1.getCreditcard().generateBill("25/4/2021");
         account1.getCreditcard().payBill(100);
 
-        PayMethod tedMarcinho = new TED("Marcinho Agiota", "BB", "0123", "12345-6", "111.222.333.444-55");
-        PayMethod michele = new Pix("mibolso@gmail.com");
-        PayMethod zeNubank = new TEV(contaZe);
-        PayMethod contaLuzAtrasada = new BankSlip("123456.456456456.7897879-79", 9.7);
+        TransferDestination marcinho = new TedInformation("Marcinho Agiota", "BB", "0123", "12345-6", "111.222.333.444-55");
+        TransferDestination michele = new PixInformation("Michele", "micheleb@gmail.com");
+        TransferDestination zezinho = new TevInformation("José", contaZe);
 
-        Payment parcelaDivida = new Payment(250,"pagamento de divida", "15/4/2021", tedMarcinho);
-        Payment vendaHotwheels = new Payment(89,"venda dos carros", "15/4/2021", michele);
-        Payment transferToZe = new Payment(20,"lanchão do fds", "15/4/2021", zeNubank);
-        Payment pagarLuz = new Payment(97,"conta de luz atrasada", "15/4/2021", contaLuzAtrasada);
 
         account1.deposit(2500);
 
-        account1.pay(parcelaDivida);
-        account1.pay(parcelaDivida);
-        account1.pay(vendaHotwheels);
-        account1.pay(transferToZe);
-        account1.pay(pagarLuz);
+        account1.transfer(250, "aquela divida", "11/02/2021", marcinho);
+        account1.transfer(89, "aquele cheque", "1/4/2021", michele);
+        account1.transfer(20, "lanche", "1/4/2021", zezinho);
+
+        account1.pay(120, "conta de luz","1/4/2021", "123456.789456.123456.7897-88");
+
     }
 }
