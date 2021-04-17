@@ -1,4 +1,4 @@
-package com.company;
+package creditcard;
 
 public class Bill {
     private double amount;

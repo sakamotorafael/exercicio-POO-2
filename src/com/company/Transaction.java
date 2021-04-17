@@ -1,14 +1,21 @@
 package com.company;
 
+import payment.PayMethod;
+import payment.PaymentDestination;
+
 public class Transaction {
     private double value;
     private String description;
     private String date;
+    private PayMethod method;
+    private PaymentDestination destination;
 
-    public Transaction(double value, String description, String date) {
+    public Transaction(double value, String description, String date, PayMethod method, PaymentDestination destination) {
         this.value = value;
         this.description = description;
         this.date = date;
+        this.method = method;
+        this.destination = destination;
     }
 
     public double getValue() {

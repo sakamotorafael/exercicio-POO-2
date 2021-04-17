@@ -1,4 +1,4 @@
-package com.company;
+package creditcard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +58,14 @@ public class Creditcard {
         return bills;
     }
 
+    public double getCurrentBillAmount() {
+        return currentBillAmount;
+    }
+
+    public void setCurrentBillAmount(double currentBillAmount) {
+        this.currentBillAmount = currentBillAmount;
+    }
+
     public void setFees(double fees) {
         this.fees = fees;
     }
@@ -72,27 +80,18 @@ public class Creditcard {
         }
     }
 
-    public void addPurchase(Purchase purchase) {
+    public void addPurchase(Purchase purchase) throws Exception {
         double newAmount = this.currentBillAmount + purchase.getPrice();
-        if(newAmount < this.limit) {
-            this.purchases.add(purchase);
-            this.currentBillAmount = newAmount;
+        if(newAmount > this.limit) {
+            throw new Exception("You are out of limit to make this purchase.");
         }
+        this.purchases.add(purchase);
+        this.currentBillAmount = newAmount;
     }
 
     public void generateBill(String date) {
         Bill newBill = new Bill(this.currentBillAmount, date);
         this.bills.add(newBill);
         System.out.printf("Bill amount: %2f", this.currentBillAmount);
-    }
-
-    public void payBill(double value) {
-        if (value <= this.currentBillAmount && value >= 0) {
-            this.currentBillAmount -= value;
-            this.currentBillAmount *= this.fees;
-            // As we're not manipulating dates, the fees are only added when the bill is paid.
-            // The system, therefore, should call the payBill() method every month with a paid value.
-            // If the bill was not paid, the method is called with value 0.
-        }
     }
 }
